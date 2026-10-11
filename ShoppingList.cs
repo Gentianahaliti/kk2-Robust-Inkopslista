@@ -79,15 +79,29 @@ class ShoppingList
     }
 
     // Reads the file back into the list.
-    public void Load()
+   public void Load()
+{
+    // Läser in alla rader från filen
+    foreach (var line in File.ReadAllLines("items.txt"))
     {
-        string text = File.ReadAllText(path);
-        string[] lines = text.Split('\n');
+        // Om raden är tom eller bara mellanslag, då struntar vi i den
+        if (string.IsNullOrWhiteSpace(line))
+            continue;
 
-        foreach (string line in lines)
-        {
-            string[] parts = line.Split(';');
-            items.Add(new Item(parts[1], int.Parse(parts[0])));
-        }
+        // Delar upp raden vid semikolon, så vi får namn och pris
+        var parts = line.Split(';');
+
+        // Om det inte finns två delar (namn och pris), då är raden fel och vi hoppar över den
+        if (parts.Length < 2)
+            continue;
+
+        // Försöker göra om priset till ett heltal
+        int price;
+        if (!int.TryParse(parts[1], out price))
+            continue; // Om priset inte är ett tal, då hoppar vi över raden
+
+        // Här vet vi att raden är okej, så vi lägger till varan i listan
+        items.Add(new Item(parts[0], price));
     }
+}
 }
