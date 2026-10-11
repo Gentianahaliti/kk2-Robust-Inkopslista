@@ -32,18 +32,27 @@ if (!int.TryParse(priceInput, out int price))
 }
 list.Add(new Item(name, price));
     }
-    else if (choice == 2)
-    {
-        Console.Write("Nummer: ");
-       string input = Console.ReadLine();
-       
-if (!int.TryParse(input, out int number))
+ else if (choice == 2)
 {
-    Console.WriteLine("Fel: du måste skriva ett nummer.");
-    continue;   // Hoppa tillbaka till menyn
-}
-        list.RemoveAt(number);
+    Console.Write("Nummer: ");
+    string input = Console.ReadLine();
+
+    if (!int.TryParse(input, out int number))
+    {
+        Console.WriteLine("Fel: du måste skriva ett nummer.");
+        continue;
     }
+
+    // NY DEL – detta är fixen för Fel 5
+    if (number < 1 || number > list.Count)
+    {
+        Console.WriteLine("Fel: numret finns inte i listan.");
+        continue;
+    }
+
+    // Ändrat från RemoveAt(number) → RemoveAt(number - 1)
+    list.RemoveAt(number - 1);
+}
     else if (choice == 3)
     {
         list.Save();

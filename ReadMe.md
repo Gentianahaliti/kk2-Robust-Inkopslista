@@ -59,3 +59,20 @@ Om användaren skriver text går det inte att göra om till ett tal, och då kra
 ## Lösning:
 Jag bytte till int.TryParse() så programmet först kontrollerar om inmatningen är ett tal.
 Om det inte är ett tal visas ett felmeddelande istället för att programmet kraschar.
+
+## Fel 5
+
+## Problem:
+När jag försökte ta bort ett nummer som inte fanns i listan (t.ex. 1 när listan var tom, eller 5 när listan bara hade en vara) kraschade programmet.
+Felmeddelandet visade - System.ArgumentOutOfRangeException: Index was out of range.
+Programmet avslutades direkt och gick inte tillbaka till menyn.
+
+## Orsak:
+Programmet använder RemoveAt(number) utan att kontrollera om numret finns i listan.
+Om användaren skriver ett nummer som är mindre än 1 eller större än antalet varor, försöker programmet ta bort ett index som inte finns.
+Då kastas ArgumentOutOfRangeException.
+
+## Lösning:
+Jag la till en kontroll som gör att numret måste vara i listan innan RemoveAt körs.
+Om numret inte finns med visas ett felmeddelande istället för att programmet kraschar.
+Jag ändrade också RemoveAt(number) till RemoveAt(number - 1) så att användaren kan skriva 1 för första varan.
