@@ -30,7 +30,12 @@ if (!int.TryParse(priceInput, out int price))
     Console.WriteLine("Fel: pris måste vara ett tal.");
     continue;
 }
-list.Add(new Item(name, price));
+ if (list.Total() + price > 500)
+        {
+            Console.WriteLine("Fel: budgeten är 500 kr. Du kan inte lägga till denna vara.");
+        continue;
+        }
+         list.Add(new Item(name, price));
     }
  else if (choice == 2)
 {

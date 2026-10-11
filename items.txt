@@ -1,1 +1,1 @@
-50;glass
+25;glass
