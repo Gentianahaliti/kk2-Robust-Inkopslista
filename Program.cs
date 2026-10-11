@@ -35,11 +35,12 @@ list.Add(new Item(name, price));
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-       string numberInput = Console.ReadLine();
-if (!int.TryParse(numberInput, out int number))
+       string input = Console.ReadLine();
+       
+if (!int.TryParse(input, out int number))
 {
     Console.WriteLine("Fel: du måste skriva ett nummer.");
-    continue;
+    continue;   // Hoppa tillbaka till menyn
 }
         list.RemoveAt(number);
     }

@@ -45,3 +45,17 @@ Om användaren skriver text går det inte att göra om till ett tal, och då kra
 ## Lösning:
 Jag bytte till int.TryParse() så programmet först kontrollerar om priset är ett tal.
 Om det inte är ett tal visas ett felmeddelande istället för att programmet kraschar.
+
+## Fel 4
+
+## Problem:
+När jag skrev text istället för ett nummer vid “Ta bort vara” kraschade programmet.
+Felmeddelandet visade - System.FormatException: The input string was not in a correct format.
+
+## Orsak:
+Programmet använder int.Parse() för att läsa numret som ska tas bort.
+Om användaren skriver text går det inte att göra om till ett tal, och då kraschar programmet.
+
+## Lösning:
+Jag bytte till int.TryParse() så programmet först kontrollerar om inmatningen är ett tal.
+Om det inte är ett tal visas ett felmeddelande istället för att programmet kraschar.
