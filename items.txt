@@ -1,3 +1,6 @@
-15;Mjölk
-32;Bröd
-89;Ost
+30;glass
+299;entrecote
+30;läsk
+89;ost
+40;bröd
+60;kyckling
