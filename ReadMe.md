@@ -76,3 +76,20 @@ Då kastas ArgumentOutOfRangeException.
 Jag la till en kontroll som gör att numret måste vara i listan innan RemoveAt körs.
 Om numret inte finns med visas ett felmeddelande istället för att programmet kraschar.
 Jag ändrade också RemoveAt(number) till RemoveAt(number - 1) så att användaren kan skriva 1 för första varan.
+
+## Fel 6
+
+## Problem:
+När jag lade till en vara visades den korrekt i listan, men totalsumman blev ändå 0 kr, även om varan hade ett pris.
+Exempel -glass - 50 kr Totalt: 0 kr
+Programmet räknade alltså inte ihop priserna och visade alltid 0 kr på Total.
+
+## Orsak:
+I metoden Total() börjar loopen på i = 1 i stället för 0:
+Listor i C# börjar alltid på index 0, så den första varan räknas aldrig med.
+Om listan bara har en vara körs loopen inte alls, vilket gör att summan alltid blir 0.
+
+## Lösning:
+Jag ändrade loopen så att den börjar på i = 0 i stället för 1.
+Då räknas alla varor med i totalsumman:
+Efter ändringen visas rätt totalsumma Exempel: glass - 50 kr Totalt: 50 kr
