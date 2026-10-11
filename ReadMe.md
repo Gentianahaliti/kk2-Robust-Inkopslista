@@ -113,3 +113,6 @@ Jag valde att hantera budgettaket direkt i Program.cs i stället för att kasta 
 Anledningen är att Program.cs redan kontrollerar inmatning och visar felmeddelanden för användaren.
 Det är därför enklare att stoppa varan där och låta programmet fortsätta köra utan att krascha.
 Det gör också att användaren får ett tydligt meddelande och kan fortsätta använda programmet direkt.
+
+## UML-diagram
+![UML-diagrammet](UML-Diagram-drawio.png)
