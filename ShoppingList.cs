@@ -27,7 +27,7 @@ public int Count
     // Adds up the price of every item on the list.
     public int Total()
     {
-        int sum = 0;
+        int sum = 0;pp
 
         for (int i = 0; i < items.Count; i++)
         {

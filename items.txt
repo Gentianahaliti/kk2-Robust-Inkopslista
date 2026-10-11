@@ -1,1 +1,1 @@
-25;glass
+30;glass
