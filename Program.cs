@@ -88,4 +88,8 @@ catch (ArgumentException ex)
     {
         break;
     }
+    else
+{
+    Console.WriteLine("Fel: välj ett alternativ mellan 1 och 5.");
+}
 }
