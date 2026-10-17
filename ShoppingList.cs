@@ -91,6 +91,8 @@ public int Count
     // Reads the file back into the list.
    public void Load()
 {
+     if (!File.Exists("items.txt"))
+        return;
     // Läser in alla rader från filen
     foreach (var line in File.ReadAllLines("items.txt"))
     {
