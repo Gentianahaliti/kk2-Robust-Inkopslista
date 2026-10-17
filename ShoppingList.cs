@@ -9,12 +9,18 @@ class ShoppingList
         this.path = path;
     }
 
-    public void Add(Item item)
+    
+public void Add(Item item)
+{
+    if (Total() + item.Price > 500)
     {
-        items.Add(item);
+        throw new InvalidOperationException(
+            "Budgeten på 500 kr överskrids.");
     }
 
-    // Removes the item the user sees as number 1, 2, 3 ...
+    items.Add(item);
+}
+ // Removes the item the user sees as number 1, 2, 3 ...
     public void RemoveAt(int number)
     {
         items.RemoveAt(number - 1);
@@ -27,7 +33,7 @@ public int Count
     // Adds up the price of every item on the list.
     public int Total()
     {
-        int sum = 0;pp
+        int sum = 0;
 
         for (int i = 0; i < items.Count; i++)
         {
