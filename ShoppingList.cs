@@ -106,12 +106,11 @@ public int Count
             continue;
 
         // Försöker göra om priset till ett heltal
-        int price;
-        if (!int.TryParse(parts[1], out price))
-            continue; // Om priset inte är ett tal, då hoppar vi över raden
+       int price;
+if (!int.TryParse(parts[0], out price))
+    continue;
 
-        // Här vet vi att raden är okej, så vi lägger till varan i listan
-        items.Add(new Item(parts[0], price));
-    }
+items.Add(new Item(parts[1], price));
+}
 }
 }
