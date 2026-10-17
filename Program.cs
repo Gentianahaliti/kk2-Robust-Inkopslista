@@ -64,9 +64,7 @@ catch (ArgumentException ex)
         Console.WriteLine("Fel: numret finns inte i listan.");
         continue;
     }
-
-    // Ändrat från RemoveAt(number) → RemoveAt(number - 1)
-    list.RemoveAt(number - 1);
+    list.RemoveAt(number);
 }
     else if (choice == 3)
     {
