@@ -68,27 +68,29 @@ public int Count
     }
 
     // Writes one item per line, as "price;name".
-    public void Save()
+public void Save()
+{
+    List<string> lines = new List<string>();
+
+    foreach (Item item in items)
     {
-        List<string> lines = new List<string>();
-
-        foreach (Item item in items)
-        {
-            lines.Add($"{item.Price};{item.Name}");
-        }
-
-        try
-        {
-            File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
-        }
-        catch
-        {
-        }
-
-        Console.WriteLine("Listan är sparad.");
+        lines.Add($"{item.Price};{item.Name}");
     }
 
-    // Reads the file back into the list.
+    try
+    {
+        File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+        Console.WriteLine("Listan är sparad.");
+    }
+    catch (IOException ex)
+    {
+        Console.WriteLine($"Kunde inte spara listan: {ex.Message}");
+    }
+    catch (UnauthorizedAccessException ex)
+    {
+        Console.WriteLine($"Ingen behörighet att spara listan: {ex.Message}");
+    }
+}
    public void Load()
 {
      if (!File.Exists("items.txt"))
