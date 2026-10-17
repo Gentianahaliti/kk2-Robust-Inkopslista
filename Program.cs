@@ -35,7 +35,17 @@ if (!int.TryParse(priceInput, out int price))
             Console.WriteLine("Fel: budgeten är 500 kr. Du kan inte lägga till denna vara.");
         continue;
         }
-         list.Add(new Item(name, price));
+
+try
+{
+    list.Add(new Item(name, price));
+    Console.WriteLine("Varan har lagts till.");
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Fel: {ex.Message}");
+}
+
     }
  else if (choice == 2)
 {
