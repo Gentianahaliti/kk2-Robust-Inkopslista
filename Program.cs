@@ -23,19 +23,15 @@ if (!int.TryParse(choiceInput, out int choice))
     {
         Console.Write("Namn: ");
         string name = Console.ReadLine();
+       
        Console.Write("Pris: ");
 string priceInput = Console.ReadLine();
+
 if (!int.TryParse(priceInput, out int price))
 {
     Console.WriteLine("Fel: pris måste vara ett tal.");
     continue;
-}
- if (list.Total() + price > 500)
-        {
-            Console.WriteLine("Fel: budgeten är 500 kr. Du kan inte lägga till denna vara.");
-        continue;
-        }
-
+}      
 try
 {
     list.Add(new Item(name, price));
@@ -45,8 +41,11 @@ catch (ArgumentException ex)
 {
     Console.WriteLine($"Fel: {ex.Message}");
 }
-
+ catch (InvalidOperationException ex)
+    {
+        Console.WriteLine($"Fel: {ex.Message}");
     }
+}
  else if (choice == 2)
 {
     Console.Write("Nummer: ");
