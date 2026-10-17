@@ -13,7 +13,7 @@ class Item
 
         if (price < 0)
         {
-            throw new ArgumentOutOfRangeException("Priset får inte vara negativt.");
+            throw new ArgumentOutOfRangeException(nameof(price), "Priset får inte vara negativt.");
         }
 
         Name = name;

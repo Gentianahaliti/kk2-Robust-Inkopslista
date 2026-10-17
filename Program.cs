@@ -37,14 +37,14 @@ try
     list.Add(new Item(name, price));
     Console.WriteLine("Varan har lagts till.");
 }
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine("Fel: Priset får inte vara negativt.");
+}
 catch (ArgumentException ex)
 {
     Console.WriteLine($"Fel: {ex.Message}");
 }
- catch (InvalidOperationException ex)
-    {
-        Console.WriteLine($"Fel: {ex.Message}");
-    }
 }
  else if (choice == 2)
 {
