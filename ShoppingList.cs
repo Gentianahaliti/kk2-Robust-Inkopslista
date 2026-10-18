@@ -9,26 +9,31 @@ class ShoppingList
         this.path = path;
     }
 
-    
-public void Add(Item item)
-{
-    if (Total() + item.Price > 500)
+    public void Add(Item item)
     {
-        throw new InvalidOperationException(
-            "Budgeten på 500 kr överskrids.");
-    }
+        if (Total() + item.Price > 500)
+        {
+            throw new InvalidOperationException("Budgeten på 500 kr överskrids.");
+        }
 
-    items.Add(item);
-}
- // Removes the item the user sees as number 1, 2, 3 ...
+        items.Add(item);
+    }
+    // Removes the item the user sees as number 1, 2, 3 ...
     public void RemoveAt(int number)
     {
+        if (number < 1 || number > items.Count)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(number),
+                "Numret finns inte i listan.");
+        }
+
         items.RemoveAt(number - 1);
     }
-public int Count
-{
-    get { return items.Count; }
-}
+    public int Count
+    {
+        get { return items.Count; }
+    }
 
     // Adds up the price of every item on the list.
     public int Total()
@@ -68,53 +73,58 @@ public int Count
     }
 
     // Writes one item per line, as "price;name".
-public void Save()
-{
-    List<string> lines = new List<string>();
-
-    foreach (Item item in items)
+    public void Save()
     {
-        lines.Add($"{item.Price};{item.Name}");
+        List<string> lines = new List<string>();
+
+        foreach (Item item in items)
+        {
+            lines.Add($"{item.Price};{item.Name}");
+        }
+
+        try
+        {
+            File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            Console.WriteLine("Listan är sparad.");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Kunde inte spara listan: {ex.Message}");
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            Console.WriteLine($"Ingen behörighet att spara listan: {ex.Message}");
+        }
     }
-
-    try
+    public void Load()
     {
-        File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
-        Console.WriteLine("Listan är sparad.");
+        // Om filen saknas finns det inget att läsa in.
+        if (!File.Exists(path))
+            return;
+
+        foreach (string line in File.ReadAllLines(path))
+        {
+            // Hoppar över tomma rader.
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+
+            // Delar raden i pris och namn vid semikolon.
+            string[] parts = line.Split(';');
+
+            // Raden måste innehålla både pris och namn.
+            if (parts.Length != 2)
+                continue;
+
+            // Kontrollerar att priset går att läsa som ett heltal.
+            if (!int.TryParse(parts[0], out int price))
+                continue;
+
+            // Hoppar över tomma namn och negativa priser.
+            if (string.IsNullOrWhiteSpace(parts[1]) || price < 0)
+                continue;
+
+            // Lägger till varan med det inlästa namnet och priset.
+            items.Add(new Item(parts[1], price));
+        }
     }
-    catch (IOException ex)
-    {
-        Console.WriteLine($"Kunde inte spara listan: {ex.Message}");
-    }
-    catch (UnauthorizedAccessException ex)
-    {
-        Console.WriteLine($"Ingen behörighet att spara listan: {ex.Message}");
-    }
-}
-   public void Load()
-{
-     if (!File.Exists("items.txt"))
-        return;
-    // Läser in alla rader från filen
-    foreach (var line in File.ReadAllLines("items.txt"))
-    {
-        // Om raden är tom eller bara mellanslag, då struntar vi i den
-        if (string.IsNullOrWhiteSpace(line))
-            continue;
-
-        // Delar upp raden vid semikolon, så vi får namn och pris
-        var parts = line.Split(';');
-
-        // Om det inte finns två delar (namn och pris), då är raden fel och vi hoppar över den
-        if (parts.Length < 2)
-            continue;
-
-        // Försöker göra om priset till ett heltal
-       int price;
-if (!int.TryParse(parts[0], out price))
-    continue;
-
-items.Add(new Item(parts[1], price));
-}
-}
 }
